@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spotify.Clone.Models", "Spotify.Clone.Models\Spotify.Clone.Models.csproj", "{EBBFC7C3-115F-459C-BDFC-2F14E9DB2BDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spotify.Clone.Data", "Spotify.Clone.Data\Spotify.Clone.Data.csproj", "{1D42026D-7BFE-4635-83D0-4EF17DC2F4BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spotify.Clone.API", "Spotify.Clone.API\Spotify.Clone.API.csproj", "{8AC7C60B-AC50-4463-804A-DC8548C52F6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBBFC7C3-115F-459C-BDFC-2F14E9DB2BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBFC7C3-115F-459C-BDFC-2F14E9DB2BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBFC7C3-115F-459C-BDFC-2F14E9DB2BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBFC7C3-115F-459C-BDFC-2F14E9DB2BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D42026D-7BFE-4635-83D0-4EF17DC2F4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D42026D-7BFE-4635-83D0-4EF17DC2F4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D42026D-7BFE-4635-83D0-4EF17DC2F4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D42026D-7BFE-4635-83D0-4EF17DC2F4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC7C60B-AC50-4463-804A-DC8548C52F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC7C60B-AC50-4463-804A-DC8548C52F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC7C60B-AC50-4463-804A-DC8548C52F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC7C60B-AC50-4463-804A-DC8548C52F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E706E2B-C107-4907-B2A1-37F645D664A5}
+	EndGlobalSection
+EndGlobal

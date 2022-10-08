@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Spotify.Clone.Data.DataContext;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<SpotifyDbContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DbConnection")
+        )) ;
 
 builder.Services.AddControllers();
 

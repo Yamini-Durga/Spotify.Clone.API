@@ -11,7 +11,7 @@ namespace Spotify.Clone.Data.Interfaces
     {
         Task<ServiceResponse<object>> RegisterUser(UserRegistrationDto user);
         Task<ServiceResponse<string>> LoginUser(UserLoginDto user);
-        Task<ServiceResponse<string>> VerifyUser(string token);
+        Task<ServiceResponse<string>> VerifyUser(VerifyUserDto request);
         Task<ServiceResponse<string>> ForgotPassword(string email);
         Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto token);
     }

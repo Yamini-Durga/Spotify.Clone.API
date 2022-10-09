@@ -93,10 +93,10 @@ namespace Spotify.Clone.Data.Services
 
             return response;
         }
-        public async Task<ServiceResponse<string>> VerifyUser(string token)
+        public async Task<ServiceResponse<string>> VerifyUser(VerifyUserDto request)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-            var user = await GetUserByToken(token);
+            var user = await GetUserByToken(request);
             if(user == null)
             {
                 response.Success = false;
@@ -130,7 +130,7 @@ namespace Spotify.Clone.Data.Services
         public async Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto request)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-            var user = await GetUserByResetToken(request.Token);
+            var user = await GetUserByResetToken(request);
             if (user == null || user.ResetTokenExpires < DateTime.Now)
             {
                 response.Success = false;
@@ -164,13 +164,15 @@ namespace Spotify.Clone.Data.Services
             }
             return role;
         }
-        private async Task<User> GetUserByToken(string token)
+        private async Task<User> GetUserByToken(VerifyUserDto request)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.VerificationToken == token);
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.VerificationToken == request.Token && u.Email == request.Email);
         }
-        private async Task<User> GetUserByResetToken(string token)
+        private async Task<User> GetUserByResetToken(ResetPasswordDto request)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.ResetPasswordToken == token);
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.ResetPasswordToken == request.Token && u.Email == request.Email);
         }
     }
 }

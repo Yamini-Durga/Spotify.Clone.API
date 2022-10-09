@@ -36,10 +36,10 @@ namespace Spotify.Clone.API.Controllers
             return Ok(response);
         }
         [HttpPost("verify")]
-        public async Task<ActionResult<ServiceResponse<string>>> Verify(string token)
+        public async Task<ActionResult<ServiceResponse<string>>> Verify(VerifyUserDto request)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-            response = await _authService.VerifyUser(token);
+            response = await _authService.VerifyUser(request);
             if (!response.Success)
             {
                 return BadRequest(response);

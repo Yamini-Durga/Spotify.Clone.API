@@ -15,16 +15,22 @@ namespace Spotify.Clone.Models.Models
         public string Name { get; set; } = string.Empty;
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
-        public string PasswordSalt { get; set; } = string.Empty;
+        [Required]
+        public byte[] PasswordHash { get; set; }
+        [Required]
+        public byte[] PasswordSalt { get; set; }
+        public string? VerificationToken { get; set; } // verified at registration time
+        public DateTime? VerifiedAt { get; set; }
+        public string? ResetPasswordToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; } // token expiration time for reset password
         [Required, RegularExpression("Male|Female")]
         public string Gender { get; set; } = string.Empty;
         [Required]
-        public int Month { get; set; }
+        public string Month { get; set; } = string.Empty;
         [Required]
-        public int Date { get; set; }
+        public string Date { get; set; } = string.Empty;
         [Required]
-        public int Year { get; set; }
+        public string Year { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public ICollection<LikedSong>? LikedSongs { get; set; }
         public ICollection<Playlist>? Playlists { get; set; }

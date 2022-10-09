@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Spotify.Clone.API.Controllers
@@ -22,7 +23,7 @@ namespace Spotify.Clone.API.Controllers
         /// </summary>
         /// <returns>Weather in F</returns>
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -32,6 +33,11 @@ namespace Spotify.Clone.API.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+        [HttpGet("name"), Authorize(Roles = "Admin")]
+        public string GetName()
+        {
+            return "Whose name you asked ?";
         }
     }
 }

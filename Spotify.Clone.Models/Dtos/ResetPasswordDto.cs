@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spotify.Clone.Models.Models
+namespace Spotify.Clone.Models.Dtos
 {
-    public class UserLogin
+    public class ResetPasswordDto
     {
         [Required]
-        public int Id { get; set; }
-        [Required, EmailAddress]
-        public string Email { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
         [Required, MinLength(6)]
         public string Password { get; set; } = string.Empty;
+        [Required, MinLength(6), Compare("Password")]
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

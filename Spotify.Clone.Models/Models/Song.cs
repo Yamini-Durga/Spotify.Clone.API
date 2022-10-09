@@ -21,5 +21,7 @@ namespace Spotify.Clone.Models.Models
         public string ImageUrl { get; set; } = string.Empty;
         [Required]
         public double Duration { get; set; }
+        [Required]
+        public DateTime AddedAt { get; set; } = DateTime.Now;
     }
 }

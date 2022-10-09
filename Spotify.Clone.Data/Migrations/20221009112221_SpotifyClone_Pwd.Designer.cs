@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotify.Clone.Data.DataContext;
 
@@ -11,9 +12,10 @@ using Spotify.Clone.Data.DataContext;
 namespace Spotify.Clone.Data.Migrations
 {
     [DbContext(typeof(SpotifyDbContext))]
-    partial class SpotifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221009112221_SpotifyClone_Pwd")]
+    partial class SpotifyClone_Pwd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

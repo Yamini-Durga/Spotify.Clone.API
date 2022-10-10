@@ -17,7 +17,6 @@ namespace Spotify.Clone.Data.DataContext
         public DbSet<User> Users { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
-        public DbSet<PlaylistSong> PlaylistSongs { get; set; }
         public DbSet<LikedSong> LikedSongs { get; set; }
     }
 }

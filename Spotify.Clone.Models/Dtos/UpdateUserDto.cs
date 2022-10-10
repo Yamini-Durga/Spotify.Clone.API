@@ -1,5 +1,4 @@
-﻿using Spotify.Clone.Models.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spotify.Clone.Models.Dtos
 {
-    public class UserPayload
+    public class UpdateUserDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -16,7 +15,5 @@ namespace Spotify.Clone.Models.Dtos
         public string Month { get; set; } = string.Empty;
         public string Date { get; set; } = string.Empty;
         public string Year { get; set; } = string.Empty;
-        public ICollection<LikedSongDto>? LikedSongs { get; set; }
-        public ICollection<PlaylistDto>? Playlists { get; set; }
     }
 }

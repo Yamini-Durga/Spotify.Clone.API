@@ -9,8 +9,8 @@ namespace Spotify.Clone.Models.Models
 {
     public class Song
     {
-        [Required]
-        public int Id { get; set; }
+        [Required, Key]
+        public int SongId { get; set; }
         [Required, MinLength(2)]
         public string Name { get; set; } = string.Empty;
         [Required, MinLength(2)]
@@ -23,5 +23,6 @@ namespace Spotify.Clone.Models.Models
         public double Duration { get; set; }
         [Required]
         public DateTime AddedAt { get; set; } = DateTime.Now;
+        public ICollection<Playlist>? Playlists { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace Spotify.Clone.Data.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ServiceResponse<object>> RegisterUser(UserRegistrationDto request)
+        public async Task<ServiceResponse<VerifyUserDto>> RegisterUser(UserRegistrationDto request)
         {
-            ServiceResponse<object> response = new ServiceResponse<object>();
+            ServiceResponse<VerifyUserDto> response = new ServiceResponse<VerifyUserDto>();
             if(await UserExists(request.Email))
             {
                 response.Success = false;
@@ -52,12 +52,9 @@ namespace Spotify.Clone.Data.Services
             await _dbContext.SaveChangesAsync();
 
             response.Message = "Registerd Successfully.";
-            response.Data = new
+            response.Data = new VerifyUserDto
             {
-                Name = user.Name,
                 Email = user.Email,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
                 Token = user.VerificationToken
             };
 

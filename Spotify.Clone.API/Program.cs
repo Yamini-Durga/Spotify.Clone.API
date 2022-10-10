@@ -24,6 +24,7 @@ builder.Services.AddDbContext<SpotifyDbContext>(
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -41,7 +42,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options => 
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddSwaggerGen(options =>
     {

@@ -9,8 +9,8 @@ namespace Spotify.Clone.Models.Models
 {
     public class User
     {
-        [Required]
-        public int Id { get; set; }
+        [Required, Key]
+        public int UserId { get; set; }
         [Required, MinLength(2)]
         public string Name { get; set; } = string.Empty;
         [Required, EmailAddress]

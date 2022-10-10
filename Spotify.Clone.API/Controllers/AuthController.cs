@@ -14,9 +14,9 @@ namespace Spotify.Clone.API.Controllers
             _authService = authService;
         }
         [HttpPost("register")]
-        public async Task<ActionResult<ServiceResponse<object>>> Register(UserRegistrationDto request)
+        public async Task<ActionResult<ServiceResponse<VerifyUserDto>>> Register(UserRegistrationDto request)
         {
-            ServiceResponse<object> response = new ServiceResponse<object>();
+            ServiceResponse<VerifyUserDto> response = new ServiceResponse<VerifyUserDto>();
             response = await _authService.RegisterUser(request);
             if(!response.Success)
             {

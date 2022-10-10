@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotify.Clone.Data.Migrations
 {
-    public partial class SpotifyClone_Initial : Migration
+    public partial class SpotifyClone_MN : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,29 +13,34 @@ namespace Spotify.Clone.Data.Migrations
                 name: "Songs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    SongId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Artist = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SongUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<double>(type: "float", nullable: false)
+                    Duration = table.Column<double>(type: "float", nullable: false),
+                    AddedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.Id);
+                    table.PrimaryKey("PK_Songs", x => x.SongId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    VerificationToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VerifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ResetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResetTokenExpires = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Month = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -44,26 +49,26 @@ namespace Spotify.Clone.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "LikedSongs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    LikedSongId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SongId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LikedSongs", x => x.Id);
+                    table.PrimaryKey("PK_LikedSongs", x => x.LikedSongId);
                     table.ForeignKey(
                         name: "FK_LikedSongs_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -71,7 +76,7 @@ namespace Spotify.Clone.Data.Migrations
                 name: "Playlists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PlaylistId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -80,32 +85,36 @@ namespace Spotify.Clone.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Playlists", x => x.Id);
+                    table.PrimaryKey("PK_Playlists", x => x.PlaylistId);
                     table.ForeignKey(
                         name: "FK_Playlists_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaylistSongs",
+                name: "PlaylistSong",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SongId = table.Column<int>(type: "int", nullable: false),
-                    PlaylistId = table.Column<int>(type: "int", nullable: false)
+                    PlaylistsPlaylistId = table.Column<int>(type: "int", nullable: false),
+                    SongsSongId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlaylistSongs", x => x.Id);
+                    table.PrimaryKey("PK_PlaylistSong", x => new { x.PlaylistsPlaylistId, x.SongsSongId });
                     table.ForeignKey(
-                        name: "FK_PlaylistSongs_Playlists_PlaylistId",
-                        column: x => x.PlaylistId,
+                        name: "FK_PlaylistSong_Playlists_PlaylistsPlaylistId",
+                        column: x => x.PlaylistsPlaylistId,
                         principalTable: "Playlists",
-                        principalColumn: "Id",
+                        principalColumn: "PlaylistId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlaylistSong_Songs_SongsSongId",
+                        column: x => x.SongsSongId,
+                        principalTable: "Songs",
+                        principalColumn: "SongId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -120,9 +129,9 @@ namespace Spotify.Clone.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlaylistSongs_PlaylistId",
-                table: "PlaylistSongs",
-                column: "PlaylistId");
+                name: "IX_PlaylistSong_SongsSongId",
+                table: "PlaylistSong",
+                column: "SongsSongId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -131,13 +140,13 @@ namespace Spotify.Clone.Data.Migrations
                 name: "LikedSongs");
 
             migrationBuilder.DropTable(
-                name: "PlaylistSongs");
-
-            migrationBuilder.DropTable(
-                name: "Songs");
+                name: "PlaylistSong");
 
             migrationBuilder.DropTable(
                 name: "Playlists");
+
+            migrationBuilder.DropTable(
+                name: "Songs");
 
             migrationBuilder.DropTable(
                 name: "Users");

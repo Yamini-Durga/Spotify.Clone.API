@@ -79,7 +79,7 @@ namespace Spotify.Clone.Data.Services
             if (user.VerifiedAt == null)
             {
                 response.Success = false;
-                response.Message = "User not verified.";
+                response.Message = "User not verified, Please verify.";
                 return response;
             }
           
@@ -146,11 +146,11 @@ namespace Spotify.Clone.Data.Services
         }
         private async Task<bool> UserExists(string email)
         {
-            return await _dbContext.Users.AnyAsync(u => u.Email == email);
+            return await _dbContext.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
         private async Task<User> GetUser(string email)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
         private string GetUserRole()
         {
@@ -164,12 +164,12 @@ namespace Spotify.Clone.Data.Services
         private async Task<User> GetUserByToken(VerifyUserDto request)
         {
             return await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.VerificationToken == request.Token && u.Email == request.Email);
+                .FirstOrDefaultAsync(u => u.VerificationToken == request.Token && u.Email.ToLower() == request.Email.ToLower());
         }
         private async Task<User> GetUserByResetToken(ResetPasswordDto request)
         {
             return await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.ResetPasswordToken == request.Token && u.Email == request.Email);
+                .FirstOrDefaultAsync(u => u.ResetPasswordToken == request.Token && u.Email.ToLower() == request.Email.ToLower());
         }
     }
 }

@@ -30,8 +30,6 @@ namespace Spotify.Clone.Data.Services
             {
                 var users = await _dbContext.Users
                     .Include(l => l.LikedSongs)
-                    .Include(p => p.Playlists)
-                    .ThenInclude(p => p.Songs)
                     .ToListAsync();
                 
                 var usersPayload = _mapper.Map<IEnumerable<UserPayload>>(users);
@@ -60,8 +58,6 @@ namespace Spotify.Clone.Data.Services
             {
                 var user = await _dbContext.Users
                     .Include(l => l.LikedSongs)
-                    .Include(p => p.Playlists)
-                    .ThenInclude(p => p.Songs)
                     .SingleOrDefaultAsync(u => u.UserId == id);
                 if(user == null)
                 {
@@ -160,7 +156,7 @@ namespace Spotify.Clone.Data.Services
         }
         private async Task<User> CheckUserExists(string email, int id)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.UserId != id);
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() && u.UserId != id);
         }
     }
 }

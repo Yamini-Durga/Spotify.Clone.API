@@ -17,6 +17,5 @@ namespace Spotify.Clone.Models.Dtos
         public string Date { get; set; } = string.Empty;
         public string Year { get; set; } = string.Empty;
         public ICollection<LikedSongDto>? LikedSongs { get; set; }
-        public ICollection<PlaylistDto>? Playlists { get; set; }
     }
 }

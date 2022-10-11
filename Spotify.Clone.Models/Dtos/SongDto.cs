@@ -9,7 +9,7 @@ namespace Spotify.Clone.Models.Dtos
 {
     public class SongDto
     {
-        [Required, Key]
+        [Key]
         public int SongId { get; set; }
         [Required, MinLength(2)]
         public string Name { get; set; } = string.Empty;

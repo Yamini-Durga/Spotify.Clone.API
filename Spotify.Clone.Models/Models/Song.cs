@@ -23,6 +23,5 @@ namespace Spotify.Clone.Models.Models
         public double Duration { get; set; }
         [Required]
         public DateTime AddedAt { get; set; } = DateTime.Now;
-        public ICollection<Playlist>? Playlists { get; set; }
     }
 }

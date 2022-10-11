@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotify.Clone.Data.Migrations
 {
-    public partial class SpotifyClone_MN : Migration
+    public partial class SpotifyClone_DB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,78 +72,16 @@ namespace Spotify.Clone.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Playlists",
-                columns: table => new
-                {
-                    PlaylistId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Playlists", x => x.PlaylistId);
-                    table.ForeignKey(
-                        name: "FK_Playlists_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlaylistSong",
-                columns: table => new
-                {
-                    PlaylistsPlaylistId = table.Column<int>(type: "int", nullable: false),
-                    SongsSongId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlaylistSong", x => new { x.PlaylistsPlaylistId, x.SongsSongId });
-                    table.ForeignKey(
-                        name: "FK_PlaylistSong_Playlists_PlaylistsPlaylistId",
-                        column: x => x.PlaylistsPlaylistId,
-                        principalTable: "Playlists",
-                        principalColumn: "PlaylistId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlaylistSong_Songs_SongsSongId",
-                        column: x => x.SongsSongId,
-                        principalTable: "Songs",
-                        principalColumn: "SongId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_LikedSongs_UserId",
                 table: "LikedSongs",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Playlists_UserId",
-                table: "Playlists",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlaylistSong_SongsSongId",
-                table: "PlaylistSong",
-                column: "SongsSongId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "LikedSongs");
-
-            migrationBuilder.DropTable(
-                name: "PlaylistSong");
-
-            migrationBuilder.DropTable(
-                name: "Playlists");
 
             migrationBuilder.DropTable(
                 name: "Songs");

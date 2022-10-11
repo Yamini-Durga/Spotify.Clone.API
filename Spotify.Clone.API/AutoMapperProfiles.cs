@@ -13,7 +13,6 @@ namespace Spotify.Clone.API
             CreateMap<User, UserPayload>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
             CreateMap<LikedSong, LikedSongDto>().ReverseMap();
-            CreateMap<Playlist, PlaylistDto>().ReverseMap();
             CreateMap<Song, SongDto>().ReverseMap();
         }
     }

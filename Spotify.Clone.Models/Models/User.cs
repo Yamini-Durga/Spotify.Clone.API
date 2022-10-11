@@ -33,6 +33,5 @@ namespace Spotify.Clone.Models.Models
         public string Year { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public ICollection<LikedSong>? LikedSongs { get; set; }
-        public ICollection<Playlist>? Playlists { get; set; }
     }
 }

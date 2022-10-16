@@ -27,7 +27,7 @@ namespace Spotify.Clone.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
             response = await _authService.LoginUser(request);
             if (!response.Success)
             {
@@ -47,9 +47,9 @@ namespace Spotify.Clone.API.Controllers
             return Ok(response);
         }
         [HttpPost("forgotpassword")]
-        public async Task<ActionResult<ServiceResponse<string>>> ForgotPassword(string email)
+        public async Task<ActionResult<ServiceResponse<UserResponseDto>>> ForgotPassword(ForgotPasswordDto email)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
             response = await _authService.ForgotPassword(email);
             if (!response.Success)
             {
@@ -58,9 +58,9 @@ namespace Spotify.Clone.API.Controllers
             return Ok(response);
         }
         [HttpPost("resetpassword")]
-        public async Task<ActionResult<ServiceResponse<string>>> ResetPassword(ResetPasswordDto token)
+        public async Task<ActionResult<ServiceResponse<UserResponseDto>>> ResetPassword(ResetPasswordDto token)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
             response = await _authService.ResetPassword(token);
             if (!response.Success)
             {

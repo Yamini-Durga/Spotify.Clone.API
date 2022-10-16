@@ -51,7 +51,7 @@ namespace Spotify.Clone.Data.Services
             _dbContext.Users.Add(user);
             await _dbContext.SaveChangesAsync();
 
-            response.Message = "Registerd Successfully.";
+            response.Message = "Registration completed successfully.";
             response.Data = new VerifyUserDto
             {
                 Email = user.Email,
@@ -60,9 +60,9 @@ namespace Spotify.Clone.Data.Services
 
             return response;
         }
-        public async Task<ServiceResponse<string>> LoginUser(UserLoginDto request)
+        public async Task<ServiceResponse<UserResponseDto>> LoginUser(UserLoginDto request)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
             User user = await GetUser(request.Email);
             if(user == null)
             {
@@ -86,7 +86,11 @@ namespace Spotify.Clone.Data.Services
             string secretKey = _configuration.GetSection("AppSettings:Token").Value;
             string token = HelperMethods.CreateToken(user, secretKey);
             response.Message = "Logged in successfully.";
-            response.Data = token;
+            response.Data = new UserResponseDto
+            {
+                Id = user.UserId,
+                Token = token
+            };
 
             return response;
         }
@@ -106,10 +110,10 @@ namespace Spotify.Clone.Data.Services
 
             return response;
         }
-        public async Task<ServiceResponse<string>> ForgotPassword(string email)
+        public async Task<ServiceResponse<UserResponseDto>> ForgotPassword(ForgotPasswordDto request)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            var user = await GetUser(email);
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
+            var user = await GetUser(request.Email);
             if (user == null)
             {
                 response.Success = false;
@@ -119,19 +123,29 @@ namespace Spotify.Clone.Data.Services
             user.ResetPasswordToken = HelperMethods.CreateRandomToken();
             user.ResetTokenExpires = DateTime.Now.AddMinutes(30);
             await _dbContext.SaveChangesAsync();
-            response.Data = user.ResetPasswordToken;
+            response.Data = new UserResponseDto
+            {
+                Id = user.UserId,
+                Token = user.ResetPasswordToken
+        };
             response.Message = "Please, reset your password now.";
 
             return response; 
         }
-        public async Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto request)
+        public async Task<ServiceResponse<UserResponseDto>> ResetPassword(ResetPasswordDto request)
         {
-            ServiceResponse<string> response = new ServiceResponse<string>();
+            ServiceResponse<UserResponseDto> response = new ServiceResponse<UserResponseDto>();
             var user = await GetUserByResetToken(request);
-            if (user == null || user.ResetTokenExpires < DateTime.Now)
+            if (user == null)
             {
                 response.Success = false;
                 response.Message = "Invalid token.";
+                return response;
+            }
+            if(user != null && user.ResetTokenExpires < DateTime.Now)
+            {
+                response.Success = false;
+                response.Message = "Token expired!";
                 return response;
             }
             HelperMethods.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -141,7 +155,11 @@ namespace Spotify.Clone.Data.Services
             user.ResetTokenExpires = null;
             await _dbContext.SaveChangesAsync();
             response.Message = "Passowrd changed successfully.";
-
+            response.Data = new UserResponseDto
+            {
+                Id = user.UserId,
+                Token = null
+            };
             return response;
         }
         private async Task<bool> UserExists(string email)

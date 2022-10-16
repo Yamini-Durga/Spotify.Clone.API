@@ -10,9 +10,9 @@ namespace Spotify.Clone.Data.Interfaces
     public interface IAuthService
     {
         Task<ServiceResponse<VerifyUserDto>> RegisterUser(UserRegistrationDto user);
-        Task<ServiceResponse<string>> LoginUser(UserLoginDto user);
+        Task<ServiceResponse<UserResponseDto>> LoginUser(UserLoginDto user);
         Task<ServiceResponse<string>> VerifyUser(VerifyUserDto request);
-        Task<ServiceResponse<string>> ForgotPassword(string email);
-        Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto token);
+        Task<ServiceResponse<UserResponseDto>> ForgotPassword(ForgotPasswordDto email);
+        Task<ServiceResponse<UserResponseDto>> ResetPassword(ResetPasswordDto token);
     }
 }

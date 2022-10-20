@@ -94,7 +94,7 @@ namespace Spotify.Clone.Data.Services
                 }
                 if(user.Email != request.Email)
                 {
-                    var userExists = await CheckUserExists(request.Email, request.Id);
+                    var userExists = await CheckUserExists(request.Email, user.UserId);
                     if (userExists == null)
                     {
                         user.Email = request.Email;
@@ -115,7 +115,6 @@ namespace Spotify.Clone.Data.Services
                 await _dbContext.SaveChangesAsync();
 
                 var userPayload = _mapper.Map<UpdateUserDto>(user);
-                userPayload.Id = user.UserId;
                 response.Message = "Updated user successfully";
                 response.Data = userPayload;
 

@@ -16,7 +16,11 @@ namespace Spotify.Clone.Models.Dtos
         [Required, MinLength(2)]
         public string Artist { get; set; } = string.Empty;
         [Required]
+        public string SongUrlName { get; set; } = string.Empty;
+        [Required]
         public string SongUrl { get; set; } = string.Empty;
+        [Required]
+        public string ImageUrlName { get; set; } = string.Empty;
         [Required]
         public string ImageUrl { get; set; } = string.Empty;
         [Required]

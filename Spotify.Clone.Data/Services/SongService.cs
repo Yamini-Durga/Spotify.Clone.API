@@ -90,6 +90,8 @@ namespace Spotify.Clone.Data.Services
                 song.ImageUrl = request.ImageUrl;
                 song.Duration = request.Duration;
                 song.AddedAt = DateTime.Now;
+                song.ImageUrlName = request.ImageUrlName;
+                song.SongUrlName = request.SongUrlName;
                 await _dbContext.SaveChangesAsync();
 
                 response.Message = "Updated successfully.";

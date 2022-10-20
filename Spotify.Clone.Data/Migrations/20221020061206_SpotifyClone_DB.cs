@@ -17,7 +17,9 @@ namespace Spotify.Clone.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Artist = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SongUrlName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SongUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrlName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<double>(type: "float", nullable: false),
                     AddedAt = table.Column<DateTime>(type: "datetime2", nullable: false)

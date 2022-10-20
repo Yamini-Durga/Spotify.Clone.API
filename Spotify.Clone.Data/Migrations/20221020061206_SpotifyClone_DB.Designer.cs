@@ -12,7 +12,7 @@ using Spotify.Clone.Data.DataContext;
 namespace Spotify.Clone.Data.Migrations
 {
     [DbContext(typeof(SpotifyDbContext))]
-    [Migration("20221011163126_SpotifyClone_DB")]
+    [Migration("20221020061206_SpotifyClone_DB")]
     partial class SpotifyClone_DB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,11 +67,19 @@ namespace Spotify.Clone.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrlName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SongUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SongUrlName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -89,6 +89,7 @@ namespace Spotify.Clone.Data.Services
             response.Data = new UserResponseDto
             {
                 Id = user.UserId,
+                Name = user.Name,
                 Token = token
             };
 
@@ -126,6 +127,7 @@ namespace Spotify.Clone.Data.Services
             response.Data = new UserResponseDto
             {
                 Id = user.UserId,
+                Name = user.Name,
                 Token = user.ResetPasswordToken
         };
             response.Message = "Please, reset your password now.";
@@ -158,6 +160,7 @@ namespace Spotify.Clone.Data.Services
             response.Data = new UserResponseDto
             {
                 Id = user.UserId,
+                Name= user.Name,
                 Token = null
             };
             return response;
